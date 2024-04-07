@@ -1,0 +1,27 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+.editor-container {
+  /* This makes the container take up at least 300px height but grow beyond that if the content is larger */
+  min-height: 300px;
+  max-height: 80vh; /* Adjust the value to suit your design, such as 80% of the viewport height */
+  overflow: auto; /* Adds a scrollbar if content overflows */
+}
+
+/* Ensure that the CodeMirror editor itself also has the flexibility to grow */
+.cm-editor {
+  min-height: 300px;
+  height: auto;
+}
