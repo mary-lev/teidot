@@ -4,11 +4,13 @@ import {
     Flex,
     Box,
     Text,
+    Input,
+    Button,
     VStack,
     Select,
     Checkbox,
-    CheckboxGroup
-
+    CheckboxGroup,
+    useDisclosure
 } from '@chakra-ui/react';
 
 import { genreMenus, structureMenus, menuDisplayNames } from './menuConfig';
@@ -16,8 +18,10 @@ import SaveButton from './SaveButton';
 import TagTypes from './testTagTypes';
 import { useEditor } from '../hooks/useEditor';
 import { handleTagWithUserAttributes, handleSingleTagInsertButtonClick, handleTagWithUserSelectAttributes } from '../utils/editorActions';
-import { readFileContent } from '../utils/fileUtils'; // Adjust the import path according to your file structure
+import { readFileContent } from '../utils/fileUtils';
+import { addNewBiblToXml, addItemToList } from '../utils/xmlUtils';
 import AttributeInputModal from './AttributeInputModal';
+import EntryForm from './EntryForm';
 
 
 const Editor = ({ defaultFileName, availableMenus = [] }) => {
@@ -41,6 +45,22 @@ const Editor = ({ defaultFileName, availableMenus = [] }) => {
     const [biblOptions, setBiblOptions] = useState([]);
     const [personNameOptions, setPersonNameOptions] = useState([]);
     const [placeNameOptions, setPlaceNameOptions] = useState([]);
+
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const [newEntryType, setNewEntryType] = useState(""); // "PersonName" or "PlaceName"
+    const [newEntryId, setNewEntryId] = useState("");
+    const [newEntryText, setNewEntryText] = useState("");
+    const [isAddingEntry, setIsAddingEntry] = useState(false); // To control modal or form visibility
+
+    const handleFormSubmit = (e) => {
+        e.preventDefault();
+        addItemToList(editorInstance, newEntryType, newEntryId, newEntryText, setEditorContent); // Assume addItemToList is your utility function
+        // Reset states and close form/modal
+        setNewEntryType("");
+        setNewEntryId("");
+        setNewEntryText("");
+        setIsAddingEntry(false);
+    };
 
     const [isModalOpen, setModalOpen] = useState(false);
     const [currentTag, setCurrentTag] = useState('');
@@ -167,6 +187,26 @@ const Editor = ({ defaultFileName, availableMenus = [] }) => {
                         <Flex mb={4} justify="center" mt={4}>
                             <input type="file" onChange={handleFileUpload} accept=".xml" />
                         </Flex>
+                        <Flex direction="column" p={4}>
+                            <>
+                                {/* Button to open the modal for adding a new bibl item */}
+                                <Button onClick={onOpen}>Add New Entry Item</Button>
+
+                                {/* EntryForm modal for adding new bibl item */}
+                                <EntryForm
+                                    isOpen={isOpen}
+                                    onClose={onClose}
+                                    newEntryType={newEntryType}
+                                    setNewEntryType={setNewEntryType}
+                                    newEntryId={newEntryId}
+                                    setNewEntryId={setNewEntryId}
+                                    newEntryText={newEntryText}
+                                    setNewEntryText={setNewEntryText}
+                                    handleFormSubmit={handleFormSubmit}
+                                />
+                            </>
+                        </Flex>
+
                     </Box>
                     <Box width="60%">
                         {GenreMenuComponent && <GenreMenuComponent onTagButtonClick={handleTagAction} />}
