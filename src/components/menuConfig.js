@@ -6,6 +6,7 @@ import PoetryMenu from './Menu/PoetryMenu';
 import DramaMenu from './Menu/DramaMenu';
 import ProseMenu from './Menu/ProseMenu';
 import CorrespondenceMenu from './Menu/CorrespondenceMenu';
+import NoteMenu from './Menu/NoteMenu';
 
 export const genreMenus = {
     poetry: PoetryMenu,
@@ -19,6 +20,7 @@ export const structureMenus = {
     semanticMarkupMenu: SemanticMarkupMenu,
     criticalApparatusMenu: CriticalApparatusMenu,
     transcriptionMenu: TranscriptionMenu,
+    noteMenu: NoteMenu,
 };
 
 // Add display names if needed for user-friendly menu names
@@ -28,6 +30,7 @@ export const menuDisplayNames = {
     semanticMarkupMenu: 'Semantic Markup Tools',
     criticalApparatusMenu: 'Critical Apparatus Tools',
     transcriptionMenu: 'Transcription Tools',
+    noteMenu: 'Comments Markup Tools',
     // Genre Menus
     poetry: 'Poetry',
     drama: 'Drama',

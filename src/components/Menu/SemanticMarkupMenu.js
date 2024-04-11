@@ -5,10 +5,10 @@ const SemanticMarkupMenu = ({ onTagButtonClick }) => {
         <VStack p={1} spacing={4}>
         <HStack spacing={4} wrap="wrap">
             <Tooltip label='Wrap selected text with "persName" tags for personal names' placement='auto'>
-                <Button colorScheme="teal" variant="outline" size="sm" onClick={() => onTagButtonClick("persName")}>Person Name</Button>
+                <Button colorScheme="teal" variant="outline" size="sm" onClick={() => onTagButtonClick("persName", { ref: "" })}>Person Name</Button>
             </Tooltip>
             <Tooltip label='Wrap selected text with "placeName" tags for place names' placement='auto'>
-                <Button colorScheme="teal" variant="outline" size="sm" onClick={() => onTagButtonClick("placeName")}>Place Name</Button>
+                <Button colorScheme="teal" variant="outline" size="sm" onClick={() => onTagButtonClick("placeName", { ref: "" })}>Place Name</Button>
             </Tooltip>
             <Tooltip label='Wrap selected text with "date" tags for dates' placement='auto'>
                 <Button colorScheme="teal" variant="outline" size="sm" onClick={() => onTagButtonClick("date")}>Date</Button>

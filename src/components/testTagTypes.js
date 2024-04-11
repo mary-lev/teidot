@@ -48,12 +48,14 @@ const TagTypes = {
     },
     // Semantic markup tags
     "persName": {
-        type: "wrap",
+        type: "attributeInput",
         description: "Personal name, used for marking up the names of individuals to distinguish them from other text elements.",
+        needsAttributes: true,
     },
     "placeName": {
-        type: "wrap",
+        type: "attributeInput",
         description: "Place name, used for marking up geographical locations to facilitate specific processing, like geolocation or mapping.",
+        needsAttributes: true,
     },
     "date": {
         type: "wrap",
@@ -169,7 +171,38 @@ const TagTypes = {
         groups: ["correspondence"],
     },
 
-    // Other tags...
+    // Manzoni comments
+    "note": {
+        type: "wrap",
+        description: "Note, used for including additional information by an editor or author that is supplementary to the main text.",
+    },
+    "ref": {
+        type: "wrap",
+        description: "Reference, used to mark a reference to another part of the text or an external source.",
+    },
+    "bibl": {
+        type: "attributeInput",
+        description: "Bibliographic Reference, used to mark a bibliographic reference to a work or publication.",
+        needsAttributes: true,
+    },
+    "hi": {
+        type: "wrap",
+        description: "Highlight, used to mark text that should be highlighted or styled differently from the surrounding text.",
+        variants: [
+            {
+                attributesTemplate: { rend: "bold" },
+                description: "Bold text.",
+                buttonLabel: "Bold",
+            },
+            {
+                attributesTemplate: { rend: "italic" },
+                description: "Italic text.",
+                buttonLabel: "Italic",
+            },
+            // Add other 'hi' variants as needed
+        ]
+    },
+
 };
 
 export default TagTypes;

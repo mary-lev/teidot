@@ -8,12 +8,22 @@ import NavAdmin from './components/NavAdmin';
 
 function App() {
   return (
-    <Box>    
-          <>
-            <NavAdmin />
-            <Editor />
-          </>
-    </Box>
+          <Box>
+            <Routes>            
+              <Route path="/" element={
+                <>
+                  <NavAdmin />
+                  <Editor availableMenus={["editorMenu", "semanticMarkupMenu", "criticalApparatusMenu", "transcriptionMenu"]}/>
+                </>
+              } /> 
+              <Route path="/manzoni" element={
+                <>
+                  <NavAdmin />
+                  <Editor defaultFileName="Benucci" availableMenus={['noteMenu', 'semanticMarkupMenu']}/>
+                </>
+              } />                 
+            </Routes>
+          </Box>
   );
 }
 

@@ -15,36 +15,41 @@ import { foldGutter, foldKeymap, bracketMatching, indentOnInput } from '@codemir
 import { oneDark } from '@codemirror/theme-one-dark';
 import { xml } from '@codemirror/lang-xml';
 
-export const useEditor = (containerRef) => {
+export const useEditor = (containerRef, defaultXMLname) => {
     const [editorInstance, setEditorInstance] = useState(null);
 
     useEffect(() => {
-        if (!editorInstance && containerRef.current) { // Check if the editor has not been initialized yet
+        if (!editorInstance && containerRef.current) { 
             const loadDefaultXML = async () => {
+                let defaultXML = '<?xml version="1.0"?>\n<root>Initial content could not be loaded</root>';
                 try {
-                    const response = await fetch('/examples/poem.xml');
-                    const defaultXML = await response.text();
-                    initializeEditor(defaultXML);
+                    // Use the defaultXMLname in the fetch URL if it's provided
+                    const filePath = defaultXMLname ? `/examples/${defaultXMLname}.xml` : '/examples/poem.xml';
+                    const response = await fetch(filePath);
+                    if(response.ok) {
+                        defaultXML = await response.text();
+                    } else {
+                        console.error(`Failed to load ${filePath}`, response.statusText);
+                    }
                 } catch (error) {
-                    console.error("Failed to load default XML", error);
-                    initializeEditor('<?xml version="1.0"?>\n<root>Initial content could not be loaded</root>');
+                    console.error("Error fetching default XML", error);
                 }
+                initializeEditor(defaultXML);
             };
             loadDefaultXML();
         }
         return () => {
             if (editorInstance) {
-                editorInstance.destroy();
+                // Assuming CodeMirror 6, you might need to manually clean up the editor view
+                editorInstance.destroy(); // This is a placeholder. Adjust based on actual API.
                 setEditorInstance(null);
             }
         };
-    }, [editorInstance]);
+    }, [editorInstance, defaultXMLname]);
     
 
     const initializeEditor = (initialContent) => {
         if (!containerRef.current) return;
-
-        console.log("Initializing editor with content:", initialContent);
 
         const startState = EditorState.create({
             doc: initialContent,
@@ -57,6 +62,7 @@ export const useEditor = (containerRef) => {
                     rectangularSelection(),
                     foldGutter(),
                     xml(),
+                    indentOnInput(),
                     oneDark,
                     EditorView.lineWrapping,
                     EditorView.updateListener.of(update => {
