@@ -64,7 +64,7 @@ const EntryForm = ({ isOpen, onClose, handleFormSubmit, newEntryType, setNewEntr
             </FormControl>
           </ModalBody>
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} type="submit">
+            <Button colorScheme="teal" mr={3} type="submit">
               Add Entry
             </Button>
             <Button variant="ghost" onClick={onClose}>Cancel</Button>

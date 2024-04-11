@@ -16,7 +16,7 @@ const SaveButton = ({ getEditorContent }) => {
         URL.revokeObjectURL(href);
     };
 
-    return <Button p={6} colorScheme="blue" onClick={handleSave}>Download</Button>;
+    return <Button p={6} colorScheme="teal" onClick={handleSave}>Download</Button>;
 };
 
 
