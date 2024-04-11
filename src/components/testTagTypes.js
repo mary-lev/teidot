@@ -130,6 +130,18 @@ const TagTypes = {
         description: "Regularized or Standardized Form, used within a <choice> tag to provide a regularized or standardized form of the text for consistency or clarity.",
     },
 
+    // Prose-specific tags
+    "said": {
+        type: "wrap",
+        description: "",
+        groups: ["prose"],
+    },
+    "q": {
+        type: "wrap",
+        description: "",
+        groups: ["prose"],
+    },
+
     // Drama-specific tags...
     
     "sp": {
